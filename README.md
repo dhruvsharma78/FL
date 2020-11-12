@@ -6,6 +6,10 @@
 
 2) This project uses Anaconda environments to guarantee package management. There is a .yml file provided. Open the command prompt. Please build a conda environment from this file using the command "conda env create -n FLRR -f windows_environment.yml". Activate the environment using "conda activate FLRR". Verify that the new environment is working using conda env list.
 
+# Setup without Anaconda
+
+1) `pip install -r requirements.txt` will install all needed packages. If you update the source code and add a new package, make sure to update the requirements file by running `pip freeze > requirements.txt`
+
 # Usage:
 
 1) With the conda environment activated use the command "mpiexec -n 5 python fedavg_demo.py"
@@ -17,4 +21,3 @@
 4) Open the .py file and see the different parameters that can be modified such as the number of experiments, dimension of a data point, etc.
 
 5) Currently usage is limited to l2-regularized logisitic regression. We can extend the functionality to different types of problem by creating a child-class from the base class Classifier and providing an objective/gradient function. See the details in the classifier.py file.
-
