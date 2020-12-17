@@ -1,6 +1,5 @@
 from FL.optimizers import SGD
 from FL.models import LogisticRegression
-from FL.util import math as flm
 from sklearn.preprocessing import normalize
 from matplotlib import pyplot as plt
 import numpy as np
