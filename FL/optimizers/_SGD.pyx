@@ -10,6 +10,10 @@ from libc.stdio cimport printf
 from cython.parallel import prange
 cimport openmp
 
+# Force compilation
+cdef extern from "../util/random.c":
+    pass
+
 cdef extern from *:
     """
     #define START_OMP_SINGLE_PRAGMA() _Pragma("omp single") {
