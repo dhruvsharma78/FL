@@ -85,7 +85,7 @@ if __name__ == "__main__":
             obj[i] /= p-1
 
 
-        print("Number of MPI nodes: {}".format(p - 1))
+        print("Number of MPI nodes: {}".format(p))
         print("Dataset size: {}".format((N, dim)))
         print("Experiments: {}".format(exp))
         print("Communication Rounds: {}".format(num_coms))
