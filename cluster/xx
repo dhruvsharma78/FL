@@ -1,0 +1,35 @@
+[aws]
+aws_region_name = us-west-2
+
+[aliases]
+ssh = ssh {CFN_USER}@{MASTER_IP} {ARGS}
+
+[global]
+cluster_template = default
+update_check = true
+sanity_check = true
+
+[vpc default]
+vpc_id = vpc-00a8033a29c989c7d
+master_subnet_id = subnet-02ad1d718f8148c63
+compute_subnet_id = subnet-0543f36fcca5976f9
+use_public_ips = false
+
+[cluster x5node4cpu]
+key_name = 239Cluster
+base_os = alinux
+scheduler = slurm
+custom_ami = ami-0c723f7b69aabbf9f
+vpc_settings = default
+queue_settings = compute
+
+[queue compute]
+enable_efa = false
+enable_efa_gdr = false
+compute_resource_settings = default
+
+[compute_resource default]
+instance_type = c4.xlarge
+max_count = 5
+initial_count = 5
+
