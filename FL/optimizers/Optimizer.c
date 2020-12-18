@@ -880,12 +880,12 @@ struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer {
 /* "FL/optimizers/Optimizer.pyx":1
  * cdef class Optimizer:             # <<<<<<<<<<<<<<
  * 
- *     cdef run(self, double* X, double* y, int N, int dim):
+ *     cdef run(self, double* X, double* y, int N, int dim, int pu):
  */
 
 struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer {
-  PyObject *(*run)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int);
-  PyObject *(*run_local)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int);
+  PyObject *(*run)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int);
+  PyObject *(*run_local)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int);
 };
 static struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer *__pyx_vtabptr_2FL_10optimizers_9Optimizer_Optimizer;
 
@@ -1155,8 +1155,8 @@ static int __Pyx_check_binary_version(void);
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim); /* proto*/
-static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim); /* proto*/
+static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim, CYTHON_UNUSED int __pyx_v_pu); /* proto*/
+static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim, CYTHON_UNUSED int __pyx_v_pu); /* proto*/
 
 /* Module declarations from 'FL.optimizers.Optimizer' */
 static PyTypeObject *__pyx_ptype_2FL_10optimizers_9Optimizer_Optimizer = 0;
@@ -1207,12 +1207,12 @@ static PyObject *__pyx_tuple__2;
 /* "FL/optimizers/Optimizer.pyx":3
  * cdef class Optimizer:
  * 
- *     cdef run(self, double* X, double* y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run(self, double* X, double* y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         raise NotImplementedError()
  * 
  */
 
-static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim) {
+static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim, CYTHON_UNUSED int __pyx_v_pu) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1223,10 +1223,10 @@ static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run(CYTHON_UNUSE
 
   /* "FL/optimizers/Optimizer.pyx":4
  * 
- *     cdef run(self, double* X, double* y, int N, int dim):
+ *     cdef run(self, double* X, double* y, int N, int dim, int pu):
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  * 
- *     cdef run_local(self, double* X, double* y, int N, int dim):
+ *     cdef run_local(self, double* X, double* y, int N, int dim, int pu):
  */
   __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -1237,7 +1237,7 @@ static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run(CYTHON_UNUSE
   /* "FL/optimizers/Optimizer.pyx":3
  * cdef class Optimizer:
  * 
- *     cdef run(self, double* X, double* y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run(self, double* X, double* y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         raise NotImplementedError()
  * 
  */
@@ -1255,11 +1255,11 @@ static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run(CYTHON_UNUSE
 /* "FL/optimizers/Optimizer.pyx":6
  *         raise NotImplementedError()
  * 
- *     cdef run_local(self, double* X, double* y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run_local(self, double* X, double* y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         raise NotImplementedError()
  */
 
-static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim) {
+static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local(CYTHON_UNUSED struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *__pyx_v_self, CYTHON_UNUSED double *__pyx_v_X, CYTHON_UNUSED double *__pyx_v_y, CYTHON_UNUSED int __pyx_v_N, CYTHON_UNUSED int __pyx_v_dim, CYTHON_UNUSED int __pyx_v_pu) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -1270,7 +1270,7 @@ static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local(CYTHON
 
   /* "FL/optimizers/Optimizer.pyx":7
  * 
- *     cdef run_local(self, double* X, double* y, int N, int dim):
+ *     cdef run_local(self, double* X, double* y, int N, int dim, int pu):
  *         raise NotImplementedError()             # <<<<<<<<<<<<<<
  */
   __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
@@ -1282,7 +1282,7 @@ static PyObject *__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local(CYTHON
   /* "FL/optimizers/Optimizer.pyx":6
  *         raise NotImplementedError()
  * 
- *     cdef run_local(self, double* X, double* y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run_local(self, double* X, double* y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         raise NotImplementedError()
  */
 
@@ -1655,8 +1655,8 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
   __pyx_vtabptr_2FL_10optimizers_9Optimizer_Optimizer = &__pyx_vtable_2FL_10optimizers_9Optimizer_Optimizer;
-  __pyx_vtable_2FL_10optimizers_9Optimizer_Optimizer.run = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int))__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run;
-  __pyx_vtable_2FL_10optimizers_9Optimizer_Optimizer.run_local = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int))__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local;
+  __pyx_vtable_2FL_10optimizers_9Optimizer_Optimizer.run = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int))__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run;
+  __pyx_vtable_2FL_10optimizers_9Optimizer_Optimizer.run_local = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int))__pyx_f_2FL_10optimizers_9Optimizer_9Optimizer_run_local;
   if (PyType_Ready(&__pyx_type_2FL_10optimizers_9Optimizer_Optimizer) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_2FL_10optimizers_9Optimizer_Optimizer.tp_print = 0;
@@ -1904,7 +1904,7 @@ if (!__Pyx_RefNanny) {
   /* "FL/optimizers/Optimizer.pyx":1
  * cdef class Optimizer:             # <<<<<<<<<<<<<<
  * 
- *     cdef run(self, double* X, double* y, int N, int dim):
+ *     cdef run(self, double* X, double* y, int N, int dim, int pu):
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);

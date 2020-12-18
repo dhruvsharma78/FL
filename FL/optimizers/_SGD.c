@@ -6,7 +6,8 @@
         "depends": [
             "/Users/dhruvsharma/Desktop/School/Fall_20/CS_239/AT2/.venv/lib/python3.9/site-packages/numpy/core/include/numpy/arrayobject.h",
             "/Users/dhruvsharma/Desktop/School/Fall_20/CS_239/AT2/.venv/lib/python3.9/site-packages/numpy/core/include/numpy/ufuncobject.h",
-            "FL/optimizers/SGD.c"
+            "FL/optimizers/SGD.c",
+            "FL/util/random.c"
         ],
         "extra_compile_args": [
             "-fopenmp",
@@ -659,6 +660,7 @@ static CYTHON_INLINE float __PYX_NAN() {
     
 #include <stdlib.h>
 #include <omp.h>
+#include "../util/random.c"
 
     #define START_OMP_SINGLE_PRAGMA() _Pragma("omp single") {
     #define START_OMP_PARALLEL_PRAGMA() _Pragma("omp parallel") {
@@ -1286,7 +1288,7 @@ struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer {
 };
 
 
-/* "FL/optimizers/_SGD.pyx":52
+/* "FL/optimizers/_SGD.pyx":57
  *     result_t run_local(sgd_context_t*)
  * 
  * cdef class SGD(Optimizer):             # <<<<<<<<<<<<<<
@@ -1390,13 +1392,13 @@ struct __pyx_memoryviewslice_obj {
  */
 
 struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer {
-  PyObject *(*run)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int);
-  PyObject *(*run_local)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int);
+  PyObject *(*run)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int);
+  PyObject *(*run_local)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int);
 };
 static struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer *__pyx_vtabptr_2FL_10optimizers_9Optimizer_Optimizer;
 
 
-/* "FL/optimizers/_SGD.pyx":52
+/* "FL/optimizers/_SGD.pyx":57
  *     result_t run_local(sgd_context_t*)
  * 
  * cdef class SGD(Optimizer):             # <<<<<<<<<<<<<<
@@ -2187,8 +2189,8 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_X_batch(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, int __pyx_v_dim, double *__pyx_v_X_b, int *__pyx_v_rand_idx); /* proto*/
 static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_y_batch(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_y, double *__pyx_v_y_b, int *__pyx_v_rand_idx); /* proto*/
-static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim); /* proto*/
-static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim); /* proto*/
+static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim, int __pyx_v_pu); /* proto*/
+static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim, int __pyx_v_pu); /* proto*/
 static PyObject *__pyx_array_get_memview(struct __pyx_array_obj *__pyx_v_self); /* proto*/
 static char *__pyx_memoryview_get_item_pointer(struct __pyx_memoryview_obj *__pyx_v_self, PyObject *__pyx_v_index); /* proto*/
 static PyObject *__pyx_memoryview_is_slice(struct __pyx_memoryview_obj *__pyx_v_self, PyObject *__pyx_v_obj); /* proto*/
@@ -2585,7 +2587,7 @@ static PyObject *__pyx_tuple__29;
 static PyObject *__pyx_codeobj__30;
 /* Late includes */
 
-/* "FL/optimizers/_SGD.pyx":59
+/* "FL/optimizers/_SGD.pyx":64
  *     cdef double step_size, reg
  * 
  *     def __init__(self, double step_size, double reg, int epochs, int batch_size, int experiments, bint decay, double[::] w_next = None):             # <<<<<<<<<<<<<<
@@ -2642,31 +2644,31 @@ static int __pyx_pw_2FL_10optimizers_4_SGD_3SGD_1__init__(PyObject *__pyx_v_self
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_reg)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 1); __PYX_ERR(0, 59, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 1); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_epochs)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 2); __PYX_ERR(0, 59, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 2); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_batch_size)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 3); __PYX_ERR(0, 59, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 3); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_experiments)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 4); __PYX_ERR(0, 59, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 4); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_decay)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 5); __PYX_ERR(0, 59, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, 5); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
@@ -2676,7 +2678,7 @@ static int __pyx_pw_2FL_10optimizers_4_SGD_3SGD_1__init__(PyObject *__pyx_v_self
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 59, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 64, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2692,14 +2694,14 @@ static int __pyx_pw_2FL_10optimizers_4_SGD_3SGD_1__init__(PyObject *__pyx_v_self
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_step_size = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_step_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
-    __pyx_v_reg = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_reg == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
-    __pyx_v_epochs = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epochs == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
-    __pyx_v_batch_size = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
-    __pyx_v_experiments = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_experiments == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
-    __pyx_v_decay = __Pyx_PyObject_IsTrue(values[5]); if (unlikely((__pyx_v_decay == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
+    __pyx_v_step_size = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_step_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_reg = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_reg == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_epochs = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_epochs == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_batch_size = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_batch_size == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_experiments = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_experiments == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_decay = __Pyx_PyObject_IsTrue(values[5]); if (unlikely((__pyx_v_decay == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
     if (values[6]) {
-      __pyx_v_w_next = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[6], PyBUF_WRITABLE); if (unlikely(!__pyx_v_w_next.memview)) __PYX_ERR(0, 59, __pyx_L3_error)
+      __pyx_v_w_next = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[6], PyBUF_WRITABLE); if (unlikely(!__pyx_v_w_next.memview)) __PYX_ERR(0, 64, __pyx_L3_error)
     } else {
       __pyx_v_w_next = __pyx_k_;
       __PYX_INC_MEMVIEW(&__pyx_v_w_next, 1);
@@ -2707,7 +2709,7 @@ static int __pyx_pw_2FL_10optimizers_4_SGD_3SGD_1__init__(PyObject *__pyx_v_self
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 59, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 6, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 64, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("FL.optimizers._SGD.SGD.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2731,7 +2733,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "FL/optimizers/_SGD.pyx":60
+  /* "FL/optimizers/_SGD.pyx":65
  * 
  *     def __init__(self, double step_size, double reg, int epochs, int batch_size, int experiments, bint decay, double[::] w_next = None):
  *         self.w_next = &w_next[0] if w_next != None else NULL             # <<<<<<<<<<<<<<
@@ -2747,7 +2749,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
     } else if (unlikely(__pyx_t_2 >= __pyx_v_w_next.shape[0])) __pyx_t_3 = 0;
     if (unlikely(__pyx_t_3 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_3);
-      __PYX_ERR(0, 60, __pyx_L1_error)
+      __PYX_ERR(0, 65, __pyx_L1_error)
     }
     __pyx_t_1 = (&(*((double *) ( /* dim=0 */ (__pyx_v_w_next.data + __pyx_t_2 * __pyx_v_w_next.strides[0]) ))));
   } else {
@@ -2755,7 +2757,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
   }
   __pyx_v_self->w_next = __pyx_t_1;
 
-  /* "FL/optimizers/_SGD.pyx":61
+  /* "FL/optimizers/_SGD.pyx":66
  *     def __init__(self, double step_size, double reg, int epochs, int batch_size, int experiments, bint decay, double[::] w_next = None):
  *         self.w_next = &w_next[0] if w_next != None else NULL
  *         self.decay = decay             # <<<<<<<<<<<<<<
@@ -2764,7 +2766,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
  */
   __pyx_v_self->decay = __pyx_v_decay;
 
-  /* "FL/optimizers/_SGD.pyx":62
+  /* "FL/optimizers/_SGD.pyx":67
  *         self.w_next = &w_next[0] if w_next != None else NULL
  *         self.decay = decay
  *         self.epochs = epochs             # <<<<<<<<<<<<<<
@@ -2773,7 +2775,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
  */
   __pyx_v_self->epochs = __pyx_v_epochs;
 
-  /* "FL/optimizers/_SGD.pyx":63
+  /* "FL/optimizers/_SGD.pyx":68
  *         self.decay = decay
  *         self.epochs = epochs
  *         self.batch_size = batch_size             # <<<<<<<<<<<<<<
@@ -2782,7 +2784,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
  */
   __pyx_v_self->batch_size = __pyx_v_batch_size;
 
-  /* "FL/optimizers/_SGD.pyx":64
+  /* "FL/optimizers/_SGD.pyx":69
  *         self.epochs = epochs
  *         self.batch_size = batch_size
  *         self.experiments = experiments             # <<<<<<<<<<<<<<
@@ -2791,7 +2793,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
  */
   __pyx_v_self->experiments = __pyx_v_experiments;
 
-  /* "FL/optimizers/_SGD.pyx":65
+  /* "FL/optimizers/_SGD.pyx":70
  *         self.batch_size = batch_size
  *         self.experiments = experiments
  *         self.step_size = step_size             # <<<<<<<<<<<<<<
@@ -2800,7 +2802,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
  */
   __pyx_v_self->step_size = __pyx_v_step_size;
 
-  /* "FL/optimizers/_SGD.pyx":66
+  /* "FL/optimizers/_SGD.pyx":71
  *         self.experiments = experiments
  *         self.step_size = step_size
  *         self.reg = reg             # <<<<<<<<<<<<<<
@@ -2809,7 +2811,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
  */
   __pyx_v_self->reg = __pyx_v_reg;
 
-  /* "FL/optimizers/_SGD.pyx":59
+  /* "FL/optimizers/_SGD.pyx":64
  *     cdef double step_size, reg
  * 
  *     def __init__(self, double step_size, double reg, int epochs, int batch_size, int experiments, bint decay, double[::] w_next = None):             # <<<<<<<<<<<<<<
@@ -2829,7 +2831,7 @@ static int __pyx_pf_2FL_10optimizers_4_SGD_3SGD___init__(struct __pyx_obj_2FL_10
   return __pyx_r;
 }
 
-/* "FL/optimizers/_SGD.pyx":72
+/* "FL/optimizers/_SGD.pyx":77
  *     @cython.nonecheck(False)
  *     @cython.initializedcheck(False)
  *     cdef void fill_X_batch(self, double *X, int dim, double *X_b, int *rand_idx) nogil:             # <<<<<<<<<<<<<<
@@ -2847,7 +2849,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_X_batch(struct __pyx_obj_2F
   int __pyx_t_5;
   int __pyx_t_6;
 
-  /* "FL/optimizers/_SGD.pyx":74
+  /* "FL/optimizers/_SGD.pyx":79
  *     cdef void fill_X_batch(self, double *X, int dim, double *X_b, int *rand_idx) nogil:
  *         cdef int i, j
  *         for i in range(self.batch_size):             # <<<<<<<<<<<<<<
@@ -2859,7 +2861,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_X_batch(struct __pyx_obj_2F
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "FL/optimizers/_SGD.pyx":75
+    /* "FL/optimizers/_SGD.pyx":80
  *         cdef int i, j
  *         for i in range(self.batch_size):
  *             for j in range(dim):             # <<<<<<<<<<<<<<
@@ -2871,7 +2873,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_X_batch(struct __pyx_obj_2F
     for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
       __pyx_v_j = __pyx_t_6;
 
-      /* "FL/optimizers/_SGD.pyx":76
+      /* "FL/optimizers/_SGD.pyx":81
  *         for i in range(self.batch_size):
  *             for j in range(dim):
  *                 X_b[i * dim + j] = X[rand_idx[i] * dim + j]             # <<<<<<<<<<<<<<
@@ -2882,7 +2884,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_X_batch(struct __pyx_obj_2F
     }
   }
 
-  /* "FL/optimizers/_SGD.pyx":72
+  /* "FL/optimizers/_SGD.pyx":77
  *     @cython.nonecheck(False)
  *     @cython.initializedcheck(False)
  *     cdef void fill_X_batch(self, double *X, int dim, double *X_b, int *rand_idx) nogil:             # <<<<<<<<<<<<<<
@@ -2893,7 +2895,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_X_batch(struct __pyx_obj_2F
   /* function exit code */
 }
 
-/* "FL/optimizers/_SGD.pyx":82
+/* "FL/optimizers/_SGD.pyx":87
  *     @cython.nonecheck(False)
  *     @cython.initializedcheck(False)
  *     cdef void fill_y_batch(self, double *y, double *y_b, int *rand_idx) nogil:             # <<<<<<<<<<<<<<
@@ -2907,7 +2909,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_y_batch(struct __pyx_obj_2F
   int __pyx_t_2;
   int __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":84
+  /* "FL/optimizers/_SGD.pyx":89
  *     cdef void fill_y_batch(self, double *y, double *y_b, int *rand_idx) nogil:
  *         cdef int i
  *         for i in range(self.batch_size):             # <<<<<<<<<<<<<<
@@ -2919,7 +2921,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_y_batch(struct __pyx_obj_2F
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "FL/optimizers/_SGD.pyx":85
+    /* "FL/optimizers/_SGD.pyx":90
  *         cdef int i
  *         for i in range(self.batch_size):
  *             y_b[i] = y[rand_idx[i]]             # <<<<<<<<<<<<<<
@@ -2929,7 +2931,7 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_y_batch(struct __pyx_obj_2F
     (__pyx_v_y_b[__pyx_v_i]) = (__pyx_v_y[(__pyx_v_rand_idx[__pyx_v_i])]);
   }
 
-  /* "FL/optimizers/_SGD.pyx":82
+  /* "FL/optimizers/_SGD.pyx":87
  *     @cython.nonecheck(False)
  *     @cython.initializedcheck(False)
  *     cdef void fill_y_batch(self, double *y, double *y_b, int *rand_idx) nogil:             # <<<<<<<<<<<<<<
@@ -2940,15 +2942,15 @@ static void __pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_y_batch(struct __pyx_obj_2F
   /* function exit code */
 }
 
-/* "FL/optimizers/_SGD.pyx":88
+/* "FL/optimizers/_SGD.pyx":93
  * 
  *     @cython.cdivision(True)
- *     cdef run(self, double *X, double *y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run(self, double *X, double *y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         cdef sgd_context_t ctx
  *         ctx.X = X
  */
 
-static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim) {
+static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim, int __pyx_v_pu) {
   struct sgd_context_t __pyx_v_ctx;
   struct result_t __pyx_v_res;
   int __pyx_v_max_iters;
@@ -2969,8 +2971,8 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run", 0);
 
-  /* "FL/optimizers/_SGD.pyx":90
- *     cdef run(self, double *X, double *y, int N, int dim):
+  /* "FL/optimizers/_SGD.pyx":95
+ *     cdef run(self, double *X, double *y, int N, int dim, int pu):
  *         cdef sgd_context_t ctx
  *         ctx.X = X             # <<<<<<<<<<<<<<
  *         ctx.y = y
@@ -2978,7 +2980,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  */
   __pyx_v_ctx.X = __pyx_v_X;
 
-  /* "FL/optimizers/_SGD.pyx":91
+  /* "FL/optimizers/_SGD.pyx":96
  *         cdef sgd_context_t ctx
  *         ctx.X = X
  *         ctx.y = y             # <<<<<<<<<<<<<<
@@ -2987,7 +2989,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  */
   __pyx_v_ctx.y = __pyx_v_y;
 
-  /* "FL/optimizers/_SGD.pyx":92
+  /* "FL/optimizers/_SGD.pyx":97
  *         ctx.X = X
  *         ctx.y = y
  *         ctx.w_next = NULL             # <<<<<<<<<<<<<<
@@ -2996,7 +2998,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  */
   __pyx_v_ctx.w_next = NULL;
 
-  /* "FL/optimizers/_SGD.pyx":93
+  /* "FL/optimizers/_SGD.pyx":98
  *         ctx.y = y
  *         ctx.w_next = NULL
  *         ctx.w_star = self.w_star             # <<<<<<<<<<<<<<
@@ -3006,7 +3008,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_1 = __pyx_v_self->__pyx_base.w_star;
   __pyx_v_ctx.w_star = __pyx_t_1;
 
-  /* "FL/optimizers/_SGD.pyx":94
+  /* "FL/optimizers/_SGD.pyx":99
  *         ctx.w_next = NULL
  *         ctx.w_star = self.w_star
  *         ctx.reg = self.reg             # <<<<<<<<<<<<<<
@@ -3016,7 +3018,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_2 = __pyx_v_self->reg;
   __pyx_v_ctx.reg = __pyx_t_2;
 
-  /* "FL/optimizers/_SGD.pyx":95
+  /* "FL/optimizers/_SGD.pyx":100
  *         ctx.w_star = self.w_star
  *         ctx.reg = self.reg
  *         ctx.step_size = self.step_size             # <<<<<<<<<<<<<<
@@ -3026,7 +3028,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_2 = __pyx_v_self->step_size;
   __pyx_v_ctx.step_size = __pyx_t_2;
 
-  /* "FL/optimizers/_SGD.pyx":96
+  /* "FL/optimizers/_SGD.pyx":101
  *         ctx.reg = self.reg
  *         ctx.step_size = self.step_size
  *         ctx.N = N             # <<<<<<<<<<<<<<
@@ -3035,7 +3037,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  */
   __pyx_v_ctx.N = __pyx_v_N;
 
-  /* "FL/optimizers/_SGD.pyx":97
+  /* "FL/optimizers/_SGD.pyx":102
  *         ctx.step_size = self.step_size
  *         ctx.N = N
  *         ctx.dim = dim             # <<<<<<<<<<<<<<
@@ -3044,7 +3046,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  */
   __pyx_v_ctx.dim = __pyx_v_dim;
 
-  /* "FL/optimizers/_SGD.pyx":98
+  /* "FL/optimizers/_SGD.pyx":103
  *         ctx.N = N
  *         ctx.dim = dim
  *         ctx.decay = 1 if self.decay == True else 0             # <<<<<<<<<<<<<<
@@ -3058,22 +3060,22 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   }
   __pyx_v_ctx.decay = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":99
+  /* "FL/optimizers/_SGD.pyx":104
  *         ctx.dim = dim
  *         ctx.decay = 1 if self.decay == True else 0
  *         ctx.epochs = self.epochs             # <<<<<<<<<<<<<<
  *         ctx.parallel = 1 if self.parallel == True else 0
- *         ctx.batch_size = self.batch_size
+ *         ctx.print_updates = pu
  */
   __pyx_t_3 = __pyx_v_self->epochs;
   __pyx_v_ctx.epochs = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":100
+  /* "FL/optimizers/_SGD.pyx":105
  *         ctx.decay = 1 if self.decay == True else 0
  *         ctx.epochs = self.epochs
  *         ctx.parallel = 1 if self.parallel == True else 0             # <<<<<<<<<<<<<<
+ *         ctx.print_updates = pu
  *         ctx.batch_size = self.batch_size
- *         ctx.experiments = self.experiments
  */
   if (((__pyx_v_self->__pyx_base.parallel == 1) != 0)) {
     __pyx_t_3 = 1;
@@ -3082,9 +3084,18 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   }
   __pyx_v_ctx.parallel = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":101
+  /* "FL/optimizers/_SGD.pyx":106
  *         ctx.epochs = self.epochs
  *         ctx.parallel = 1 if self.parallel == True else 0
+ *         ctx.print_updates = pu             # <<<<<<<<<<<<<<
+ *         ctx.batch_size = self.batch_size
+ *         ctx.experiments = self.experiments
+ */
+  __pyx_v_ctx.print_updates = __pyx_v_pu;
+
+  /* "FL/optimizers/_SGD.pyx":107
+ *         ctx.parallel = 1 if self.parallel == True else 0
+ *         ctx.print_updates = pu
  *         ctx.batch_size = self.batch_size             # <<<<<<<<<<<<<<
  *         ctx.experiments = self.experiments
  *         ctx.objective_func = self.objective_func
@@ -3092,8 +3103,8 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_3 = __pyx_v_self->batch_size;
   __pyx_v_ctx.batch_size = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":102
- *         ctx.parallel = 1 if self.parallel == True else 0
+  /* "FL/optimizers/_SGD.pyx":108
+ *         ctx.print_updates = pu
  *         ctx.batch_size = self.batch_size
  *         ctx.experiments = self.experiments             # <<<<<<<<<<<<<<
  *         ctx.objective_func = self.objective_func
@@ -3102,7 +3113,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_3 = __pyx_v_self->experiments;
   __pyx_v_ctx.experiments = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":103
+  /* "FL/optimizers/_SGD.pyx":109
  *         ctx.batch_size = self.batch_size
  *         ctx.experiments = self.experiments
  *         ctx.objective_func = self.objective_func             # <<<<<<<<<<<<<<
@@ -3112,7 +3123,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_4 = __pyx_v_self->__pyx_base.objective_func;
   __pyx_v_ctx.objective_func = __pyx_t_4;
 
-  /* "FL/optimizers/_SGD.pyx":104
+  /* "FL/optimizers/_SGD.pyx":110
  *         ctx.experiments = self.experiments
  *         ctx.objective_func = self.objective_func
  *         ctx.gradient_func = self.gradient_func             # <<<<<<<<<<<<<<
@@ -3122,7 +3133,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_5 = __pyx_v_self->__pyx_base.gradient_func;
   __pyx_v_ctx.gradient_func = __pyx_t_5;
 
-  /* "FL/optimizers/_SGD.pyx":107
+  /* "FL/optimizers/_SGD.pyx":113
  * 
  *         cdef result_t res
  *         cdef int max_iters = N / self.batch_size             # <<<<<<<<<<<<<<
@@ -3131,7 +3142,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  */
   __pyx_v_max_iters = (__pyx_v_N / __pyx_v_self->batch_size);
 
-  /* "FL/optimizers/_SGD.pyx":109
+  /* "FL/optimizers/_SGD.pyx":115
  *         cdef int max_iters = N / self.batch_size
  * 
  *         res = run(&ctx)             # <<<<<<<<<<<<<<
@@ -3140,55 +3151,55 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  */
   __pyx_v_res = run((&__pyx_v_ctx));
 
-  /* "FL/optimizers/_SGD.pyx":111
+  /* "FL/optimizers/_SGD.pyx":117
  *         res = run(&ctx)
  * 
  *         obj_SGD = flarray.ptr_to_double_np_array_1d(res.obj_SGD, self.epochs)             # <<<<<<<<<<<<<<
  *         obj_SGD_iters = flarray.ptr_to_double_np_array_1d(res.obj_SGD_iters, self.epochs * max_iters)
  *         MSE = flarray.ptr_to_double_np_array_1d(res.MSE, self.epochs * max_iters)
  */
-  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.obj_SGD, __pyx_v_self->epochs); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.obj_SGD, __pyx_v_self->epochs); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_obj_SGD = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "FL/optimizers/_SGD.pyx":112
+  /* "FL/optimizers/_SGD.pyx":118
  * 
  *         obj_SGD = flarray.ptr_to_double_np_array_1d(res.obj_SGD, self.epochs)
  *         obj_SGD_iters = flarray.ptr_to_double_np_array_1d(res.obj_SGD_iters, self.epochs * max_iters)             # <<<<<<<<<<<<<<
  *         MSE = flarray.ptr_to_double_np_array_1d(res.MSE, self.epochs * max_iters)
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)
  */
-  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.obj_SGD_iters, (__pyx_v_self->epochs * __pyx_v_max_iters)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.obj_SGD_iters, (__pyx_v_self->epochs * __pyx_v_max_iters)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_obj_SGD_iters = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "FL/optimizers/_SGD.pyx":113
+  /* "FL/optimizers/_SGD.pyx":119
  *         obj_SGD = flarray.ptr_to_double_np_array_1d(res.obj_SGD, self.epochs)
  *         obj_SGD_iters = flarray.ptr_to_double_np_array_1d(res.obj_SGD_iters, self.epochs * max_iters)
  *         MSE = flarray.ptr_to_double_np_array_1d(res.MSE, self.epochs * max_iters)             # <<<<<<<<<<<<<<
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)
  * 
  */
-  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.MSE, (__pyx_v_self->epochs * __pyx_v_max_iters)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.MSE, (__pyx_v_self->epochs * __pyx_v_max_iters)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_MSE = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "FL/optimizers/_SGD.pyx":114
+  /* "FL/optimizers/_SGD.pyx":120
  *         obj_SGD_iters = flarray.ptr_to_double_np_array_1d(res.obj_SGD_iters, self.epochs * max_iters)
  *         MSE = flarray.ptr_to_double_np_array_1d(res.MSE, self.epochs * max_iters)
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)             # <<<<<<<<<<<<<<
  * 
  *         return (obj_SGD, obj_SGD_iters, MSE, w)
  */
-  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.w, __pyx_v_dim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.w, __pyx_v_dim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_w = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "FL/optimizers/_SGD.pyx":116
+  /* "FL/optimizers/_SGD.pyx":122
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)
  * 
  *         return (obj_SGD, obj_SGD_iters, MSE, w)             # <<<<<<<<<<<<<<
@@ -3196,7 +3207,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
  *     @cython.cdivision(True)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = PyTuple_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_obj_SGD);
   __Pyx_GIVEREF(__pyx_v_obj_SGD);
@@ -3214,10 +3225,10 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "FL/optimizers/_SGD.pyx":88
+  /* "FL/optimizers/_SGD.pyx":93
  * 
  *     @cython.cdivision(True)
- *     cdef run(self, double *X, double *y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run(self, double *X, double *y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         cdef sgd_context_t ctx
  *         ctx.X = X
  */
@@ -3237,15 +3248,15 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run(struct __pyx_obj_2FL_10
   return __pyx_r;
 }
 
-/* "FL/optimizers/_SGD.pyx":119
+/* "FL/optimizers/_SGD.pyx":125
  * 
  *     @cython.cdivision(True)
- *     cdef run_local(self, double *X, double *y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run_local(self, double *X, double *y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         cdef sgd_context_t ctx
  *         ctx.X = X
  */
 
-static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim) {
+static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *__pyx_v_self, double *__pyx_v_X, double *__pyx_v_y, int __pyx_v_N, int __pyx_v_dim, int __pyx_v_pu) {
   struct sgd_context_t __pyx_v_ctx;
   struct result_t __pyx_v_res;
   CYTHON_UNUSED int __pyx_v_max_iters;
@@ -3265,8 +3276,8 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("run_local", 0);
 
-  /* "FL/optimizers/_SGD.pyx":121
- *     cdef run_local(self, double *X, double *y, int N, int dim):
+  /* "FL/optimizers/_SGD.pyx":127
+ *     cdef run_local(self, double *X, double *y, int N, int dim, int pu):
  *         cdef sgd_context_t ctx
  *         ctx.X = X             # <<<<<<<<<<<<<<
  *         ctx.y = y
@@ -3274,7 +3285,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
  */
   __pyx_v_ctx.X = __pyx_v_X;
 
-  /* "FL/optimizers/_SGD.pyx":122
+  /* "FL/optimizers/_SGD.pyx":128
  *         cdef sgd_context_t ctx
  *         ctx.X = X
  *         ctx.y = y             # <<<<<<<<<<<<<<
@@ -3283,7 +3294,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
  */
   __pyx_v_ctx.y = __pyx_v_y;
 
-  /* "FL/optimizers/_SGD.pyx":123
+  /* "FL/optimizers/_SGD.pyx":129
  *         ctx.X = X
  *         ctx.y = y
  *         ctx.w_next = NULL             # <<<<<<<<<<<<<<
@@ -3292,7 +3303,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
  */
   __pyx_v_ctx.w_next = NULL;
 
-  /* "FL/optimizers/_SGD.pyx":124
+  /* "FL/optimizers/_SGD.pyx":130
  *         ctx.y = y
  *         ctx.w_next = NULL
  *         ctx.w_star = self.w_star             # <<<<<<<<<<<<<<
@@ -3302,7 +3313,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_1 = __pyx_v_self->__pyx_base.w_star;
   __pyx_v_ctx.w_star = __pyx_t_1;
 
-  /* "FL/optimizers/_SGD.pyx":125
+  /* "FL/optimizers/_SGD.pyx":131
  *         ctx.w_next = NULL
  *         ctx.w_star = self.w_star
  *         ctx.reg = self.reg             # <<<<<<<<<<<<<<
@@ -3312,7 +3323,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_2 = __pyx_v_self->reg;
   __pyx_v_ctx.reg = __pyx_t_2;
 
-  /* "FL/optimizers/_SGD.pyx":126
+  /* "FL/optimizers/_SGD.pyx":132
  *         ctx.w_star = self.w_star
  *         ctx.reg = self.reg
  *         ctx.step_size = self.step_size             # <<<<<<<<<<<<<<
@@ -3322,7 +3333,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_2 = __pyx_v_self->step_size;
   __pyx_v_ctx.step_size = __pyx_t_2;
 
-  /* "FL/optimizers/_SGD.pyx":127
+  /* "FL/optimizers/_SGD.pyx":133
  *         ctx.reg = self.reg
  *         ctx.step_size = self.step_size
  *         ctx.N = N             # <<<<<<<<<<<<<<
@@ -3331,7 +3342,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
  */
   __pyx_v_ctx.N = __pyx_v_N;
 
-  /* "FL/optimizers/_SGD.pyx":128
+  /* "FL/optimizers/_SGD.pyx":134
  *         ctx.step_size = self.step_size
  *         ctx.N = N
  *         ctx.dim = dim             # <<<<<<<<<<<<<<
@@ -3340,7 +3351,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
  */
   __pyx_v_ctx.dim = __pyx_v_dim;
 
-  /* "FL/optimizers/_SGD.pyx":129
+  /* "FL/optimizers/_SGD.pyx":135
  *         ctx.N = N
  *         ctx.dim = dim
  *         ctx.decay = 1 if self.decay == True else 0             # <<<<<<<<<<<<<<
@@ -3354,7 +3365,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   }
   __pyx_v_ctx.decay = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":130
+  /* "FL/optimizers/_SGD.pyx":136
  *         ctx.dim = dim
  *         ctx.decay = 1 if self.decay == True else 0
  *         ctx.epochs = self.epochs             # <<<<<<<<<<<<<<
@@ -3364,7 +3375,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_3 = __pyx_v_self->epochs;
   __pyx_v_ctx.epochs = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":131
+  /* "FL/optimizers/_SGD.pyx":137
  *         ctx.decay = 1 if self.decay == True else 0
  *         ctx.epochs = self.epochs
  *         ctx.workers = self.workers             # <<<<<<<<<<<<<<
@@ -3374,7 +3385,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_3 = __pyx_v_self->__pyx_base.workers;
   __pyx_v_ctx.workers = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":132
+  /* "FL/optimizers/_SGD.pyx":138
  *         ctx.epochs = self.epochs
  *         ctx.workers = self.workers
  *         ctx.parallel = 1 if self.parallel == True else 0             # <<<<<<<<<<<<<<
@@ -3388,29 +3399,38 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   }
   __pyx_v_ctx.parallel = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":133
+  /* "FL/optimizers/_SGD.pyx":139
  *         ctx.workers = self.workers
  *         ctx.parallel = 1 if self.parallel == True else 0
  *         ctx.batch_size = self.batch_size             # <<<<<<<<<<<<<<
  *         ctx.experiments = self.experiments
- *         ctx.communications = self.communications
+ *         ctx.print_updates = pu
  */
   __pyx_t_3 = __pyx_v_self->batch_size;
   __pyx_v_ctx.batch_size = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":134
+  /* "FL/optimizers/_SGD.pyx":140
  *         ctx.parallel = 1 if self.parallel == True else 0
  *         ctx.batch_size = self.batch_size
  *         ctx.experiments = self.experiments             # <<<<<<<<<<<<<<
+ *         ctx.print_updates = pu
  *         ctx.communications = self.communications
- *         ctx.objective_func = self.objective_func
  */
   __pyx_t_3 = __pyx_v_self->experiments;
   __pyx_v_ctx.experiments = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":135
+  /* "FL/optimizers/_SGD.pyx":141
  *         ctx.batch_size = self.batch_size
  *         ctx.experiments = self.experiments
+ *         ctx.print_updates = pu             # <<<<<<<<<<<<<<
+ *         ctx.communications = self.communications
+ *         ctx.objective_func = self.objective_func
+ */
+  __pyx_v_ctx.print_updates = __pyx_v_pu;
+
+  /* "FL/optimizers/_SGD.pyx":142
+ *         ctx.experiments = self.experiments
+ *         ctx.print_updates = pu
  *         ctx.communications = self.communications             # <<<<<<<<<<<<<<
  *         ctx.objective_func = self.objective_func
  *         ctx.gradient_func = self.gradient_func
@@ -3418,8 +3438,8 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_3 = __pyx_v_self->__pyx_base.communications;
   __pyx_v_ctx.communications = __pyx_t_3;
 
-  /* "FL/optimizers/_SGD.pyx":136
- *         ctx.experiments = self.experiments
+  /* "FL/optimizers/_SGD.pyx":143
+ *         ctx.print_updates = pu
  *         ctx.communications = self.communications
  *         ctx.objective_func = self.objective_func             # <<<<<<<<<<<<<<
  *         ctx.gradient_func = self.gradient_func
@@ -3428,7 +3448,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_4 = __pyx_v_self->__pyx_base.objective_func;
   __pyx_v_ctx.objective_func = __pyx_t_4;
 
-  /* "FL/optimizers/_SGD.pyx":137
+  /* "FL/optimizers/_SGD.pyx":144
  *         ctx.communications = self.communications
  *         ctx.objective_func = self.objective_func
  *         ctx.gradient_func = self.gradient_func             # <<<<<<<<<<<<<<
@@ -3438,7 +3458,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_5 = __pyx_v_self->__pyx_base.gradient_func;
   __pyx_v_ctx.gradient_func = __pyx_t_5;
 
-  /* "FL/optimizers/_SGD.pyx":140
+  /* "FL/optimizers/_SGD.pyx":147
  * 
  *         cdef result_t res
  *         cdef int max_iters = N / self.batch_size             # <<<<<<<<<<<<<<
@@ -3447,7 +3467,7 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
  */
   __pyx_v_max_iters = (__pyx_v_N / __pyx_v_self->batch_size);
 
-  /* "FL/optimizers/_SGD.pyx":142
+  /* "FL/optimizers/_SGD.pyx":149
  *         cdef int max_iters = N / self.batch_size
  * 
  *         res = run_local(&ctx)             # <<<<<<<<<<<<<<
@@ -3456,51 +3476,49 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
  */
   __pyx_v_res = run_local((&__pyx_v_ctx));
 
-  /* "FL/optimizers/_SGD.pyx":144
+  /* "FL/optimizers/_SGD.pyx":151
  *         res = run_local(&ctx)
  * 
  *         obj_SGD = flarray.ptr_to_double_np_array_1d(res.obj_SGD, self.communications)             # <<<<<<<<<<<<<<
  *         MSE = flarray.ptr_to_double_np_array_1d(res.MSE, self.communications)
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)
  */
-  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.obj_SGD, __pyx_v_self->__pyx_base.communications); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.obj_SGD, __pyx_v_self->__pyx_base.communications); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_obj_SGD = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "FL/optimizers/_SGD.pyx":145
+  /* "FL/optimizers/_SGD.pyx":152
  * 
  *         obj_SGD = flarray.ptr_to_double_np_array_1d(res.obj_SGD, self.communications)
  *         MSE = flarray.ptr_to_double_np_array_1d(res.MSE, self.communications)             # <<<<<<<<<<<<<<
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)
  * 
  */
-  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.MSE, __pyx_v_self->__pyx_base.communications); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.MSE, __pyx_v_self->__pyx_base.communications); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_MSE = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "FL/optimizers/_SGD.pyx":146
+  /* "FL/optimizers/_SGD.pyx":153
  *         obj_SGD = flarray.ptr_to_double_np_array_1d(res.obj_SGD, self.communications)
  *         MSE = flarray.ptr_to_double_np_array_1d(res.MSE, self.communications)
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)             # <<<<<<<<<<<<<<
  * 
  *         return (obj_SGD, MSE, w)
  */
-  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.w, __pyx_v_dim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_2FL_4util_5array_ptr_to_double_np_array_1d(__pyx_v_res.w, __pyx_v_dim); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_v_w = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "FL/optimizers/_SGD.pyx":148
+  /* "FL/optimizers/_SGD.pyx":155
  *         w = flarray.ptr_to_double_np_array_1d(res.w, dim)
  * 
  *         return (obj_SGD, MSE, w)             # <<<<<<<<<<<<<<
- * 
- *     # @cython.wraparound(False)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_obj_SGD);
   __Pyx_GIVEREF(__pyx_v_obj_SGD);
@@ -3515,10 +3533,10 @@ static PyObject *__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local(struct __pyx_obj_
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "FL/optimizers/_SGD.pyx":119
+  /* "FL/optimizers/_SGD.pyx":125
  * 
  *     @cython.cdivision(True)
- *     cdef run_local(self, double *X, double *y, int N, int dim):             # <<<<<<<<<<<<<<
+ *     cdef run_local(self, double *X, double *y, int N, int dim, int pu):             # <<<<<<<<<<<<<<
  *         cdef sgd_context_t ctx
  *         ctx.X = X
  */
@@ -18467,7 +18485,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 79, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(2, 884, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 133, __pyx_L1_error)
@@ -18859,21 +18877,21 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtabptr_2FL_10optimizers_9Optimizer_Optimizer = (struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer*)__Pyx_GetVtable(__pyx_ptype_2FL_10optimizers_9Optimizer_Optimizer->tp_dict); if (unlikely(!__pyx_vtabptr_2FL_10optimizers_9Optimizer_Optimizer)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_vtabptr_2FL_10optimizers_4_SGD_SGD = &__pyx_vtable_2FL_10optimizers_4_SGD_SGD;
   __pyx_vtable_2FL_10optimizers_4_SGD_SGD.__pyx_base = *__pyx_vtabptr_2FL_10optimizers_9Optimizer_Optimizer;
-  __pyx_vtable_2FL_10optimizers_4_SGD_SGD.__pyx_base.run = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int))__pyx_f_2FL_10optimizers_4_SGD_3SGD_run;
-  __pyx_vtable_2FL_10optimizers_4_SGD_SGD.__pyx_base.run_local = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int))__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local;
+  __pyx_vtable_2FL_10optimizers_4_SGD_SGD.__pyx_base.run = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int))__pyx_f_2FL_10optimizers_4_SGD_3SGD_run;
+  __pyx_vtable_2FL_10optimizers_4_SGD_SGD.__pyx_base.run_local = (PyObject *(*)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int))__pyx_f_2FL_10optimizers_4_SGD_3SGD_run_local;
   __pyx_vtable_2FL_10optimizers_4_SGD_SGD.fill_X_batch = (void (*)(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *, double *, int, double *, int *))__pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_X_batch;
   __pyx_vtable_2FL_10optimizers_4_SGD_SGD.fill_y_batch = (void (*)(struct __pyx_obj_2FL_10optimizers_4_SGD_SGD *, double *, double *, int *))__pyx_f_2FL_10optimizers_4_SGD_3SGD_fill_y_batch;
   __pyx_type_2FL_10optimizers_4_SGD_SGD.tp_base = __pyx_ptype_2FL_10optimizers_9Optimizer_Optimizer;
-  if (PyType_Ready(&__pyx_type_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_2FL_10optimizers_4_SGD_SGD.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_2FL_10optimizers_4_SGD_SGD.tp_dictoffset && __pyx_type_2FL_10optimizers_4_SGD_SGD.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_2FL_10optimizers_4_SGD_SGD.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_2FL_10optimizers_4_SGD_SGD.tp_dict, __pyx_vtabptr_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SGD, (PyObject *)&__pyx_type_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_2FL_10optimizers_4_SGD_SGD.tp_dict, __pyx_vtabptr_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_SGD, (PyObject *)&__pyx_type_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_2FL_10optimizers_4_SGD_SGD) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   __pyx_ptype_2FL_10optimizers_4_SGD_SGD = &__pyx_type_2FL_10optimizers_4_SGD_SGD;
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
@@ -19207,14 +19225,14 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "FL/optimizers/_SGD.pyx":59
+  /* "FL/optimizers/_SGD.pyx":64
  *     cdef double step_size, reg
  * 
  *     def __init__(self, double step_size, double reg, int epochs, int batch_size, int experiments, bint decay, double[::] w_next = None):             # <<<<<<<<<<<<<<
  *         self.w_next = &w_next[0] if w_next != None else NULL
  *         self.decay = decay
  */
-  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(Py_None, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(Py_None, PyBUF_WRITABLE); if (unlikely(!__pyx_t_1.memview)) __PYX_ERR(0, 64, __pyx_L1_error)
   __pyx_k_ = __pyx_t_1;
   __pyx_t_1.memview = NULL;
   __pyx_t_1.data = NULL;

@@ -1378,8 +1378,8 @@ struct __pyx_memoryviewslice_obj {
  */
 
 struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer {
-  PyObject *(*run)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int);
-  PyObject *(*run_local)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int);
+  PyObject *(*run)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int);
+  PyObject *(*run_local)(struct __pyx_obj_2FL_10optimizers_9Optimizer_Optimizer *, double *, double *, int, int, int);
 };
 static struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer *__pyx_vtabptr_2FL_10optimizers_9Optimizer_Optimizer;
 
@@ -2319,6 +2319,7 @@ static const char __pyx_k_MemoryError[] = "MemoryError";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "stringsource";
+static const char __pyx_k_extra_verbose[] = "extra_verbose";
 static const char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_communications[] = "communications";
@@ -2401,6 +2402,7 @@ static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_enumerate;
 static PyObject *__pyx_n_s_error;
+static PyObject *__pyx_n_s_extra_verbose;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_format;
 static PyObject *__pyx_n_s_fortran;
@@ -2463,7 +2465,7 @@ static PyObject *__pyx_n_s_w_star;
 static PyObject *__pyx_n_s_workers;
 static PyObject *__pyx_n_s_y;
 static int __pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression___init__(struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *__pyx_v_self, PyObject *__pyx_v_optimizer); /* proto */
-static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_2fit(struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *__pyx_v_self, __Pyx_memviewslice __pyx_v_X, __Pyx_memviewslice __pyx_v_y, __Pyx_memviewslice __pyx_v_w_star, int __pyx_v_parallel, int __pyx_v_local, PyObject *__pyx_v_communications, PyObject *__pyx_v_workers); /* proto */
+static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_2fit(struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *__pyx_v_self, __Pyx_memviewslice __pyx_v_X, __Pyx_memviewslice __pyx_v_y, __Pyx_memviewslice __pyx_v_w_star, int __pyx_v_parallel, int __pyx_v_local, PyObject *__pyx_v_communications, PyObject *__pyx_v_workers, PyObject *__pyx_v_extra_verbose); /* proto */
 static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_4__reduce_cython__(struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_6__setstate_cython__(struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression___pyx_unpickle_LogisticRegression(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
@@ -2651,7 +2653,7 @@ static int __pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression___ini
  *         self.optimizer.objective_func = &obj
  *         self.optimizer.gradient_func = &grad             # <<<<<<<<<<<<<<
  * 
- *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1):
+ *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1, extra_verbose=False):
  */
   __pyx_v_self->optimizer->gradient_func = (&grad);
 
@@ -2678,7 +2680,7 @@ static int __pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression___ini
 /* "FL/models/_LogisticRegression.pyx":19
  *         self.optimizer.gradient_func = &grad
  * 
- *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1):             # <<<<<<<<<<<<<<
+ *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1, extra_verbose=False):             # <<<<<<<<<<<<<<
  *         self.optimizer.w_star = &w_star[0]
  *         self.optimizer.parallel = parallel
  */
@@ -2693,6 +2695,7 @@ static PyObject *__pyx_pw_2FL_6models_19_LogisticRegression_18LogisticRegression
   int __pyx_v_local;
   PyObject *__pyx_v_communications = 0;
   PyObject *__pyx_v_workers = 0;
+  PyObject *__pyx_v_extra_verbose = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2700,14 +2703,17 @@ static PyObject *__pyx_pw_2FL_6models_19_LogisticRegression_18LogisticRegression
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("fit (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_X,&__pyx_n_s_y,&__pyx_n_s_w_star,&__pyx_n_s_parallel,&__pyx_n_s_local,&__pyx_n_s_communications,&__pyx_n_s_workers,0};
-    PyObject* values[7] = {0,0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_X,&__pyx_n_s_y,&__pyx_n_s_w_star,&__pyx_n_s_parallel,&__pyx_n_s_local,&__pyx_n_s_communications,&__pyx_n_s_workers,&__pyx_n_s_extra_verbose,0};
+    PyObject* values[8] = {0,0,0,0,0,0,0,0};
     values[5] = ((PyObject *)__pyx_int_10);
     values[6] = ((PyObject *)__pyx_int_1);
+    values[7] = ((PyObject *)Py_False);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+        CYTHON_FALLTHROUGH;
         case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
         CYTHON_FALLTHROUGH;
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
@@ -2734,13 +2740,13 @@ static PyObject *__pyx_pw_2FL_6models_19_LogisticRegression_18LogisticRegression
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("fit", 0, 3, 7, 1); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fit", 0, 3, 8, 1); __PYX_ERR(0, 19, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_w_star)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("fit", 0, 3, 7, 2); __PYX_ERR(0, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("fit", 0, 3, 8, 2); __PYX_ERR(0, 19, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -2766,12 +2772,20 @@ static PyObject *__pyx_pw_2FL_6models_19_LogisticRegression_18LogisticRegression
           PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_workers);
           if (value) { values[6] = value; kw_args--; }
         }
+        CYTHON_FALLTHROUGH;
+        case  7:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_extra_verbose);
+          if (value) { values[7] = value; kw_args--; }
+        }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fit") < 0)) __PYX_ERR(0, 19, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+        CYTHON_FALLTHROUGH;
         case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
         CYTHON_FALLTHROUGH;
         case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
@@ -2802,31 +2816,34 @@ static PyObject *__pyx_pw_2FL_6models_19_LogisticRegression_18LogisticRegression
     }
     __pyx_v_communications = values[5];
     __pyx_v_workers = values[6];
+    __pyx_v_extra_verbose = values[7];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fit", 0, 3, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fit", 0, 3, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("FL.models._LogisticRegression.LogisticRegression.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_2fit(((struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *)__pyx_v_self), __pyx_v_X, __pyx_v_y, __pyx_v_w_star, __pyx_v_parallel, __pyx_v_local, __pyx_v_communications, __pyx_v_workers);
+  __pyx_r = __pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_2fit(((struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *)__pyx_v_self), __pyx_v_X, __pyx_v_y, __pyx_v_w_star, __pyx_v_parallel, __pyx_v_local, __pyx_v_communications, __pyx_v_workers, __pyx_v_extra_verbose);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_2fit(struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *__pyx_v_self, __Pyx_memviewslice __pyx_v_X, __Pyx_memviewslice __pyx_v_y, __Pyx_memviewslice __pyx_v_w_star, int __pyx_v_parallel, int __pyx_v_local, PyObject *__pyx_v_communications, PyObject *__pyx_v_workers) {
+static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression_2fit(struct __pyx_obj_2FL_6models_19_LogisticRegression_LogisticRegression *__pyx_v_self, __Pyx_memviewslice __pyx_v_X, __Pyx_memviewslice __pyx_v_y, __Pyx_memviewslice __pyx_v_w_star, int __pyx_v_parallel, int __pyx_v_local, PyObject *__pyx_v_communications, PyObject *__pyx_v_workers, PyObject *__pyx_v_extra_verbose) {
+  long __pyx_v_print_updates;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
   int __pyx_t_2;
-  int __pyx_t_3;
-  Py_ssize_t __pyx_t_4;
-  Py_ssize_t __pyx_t_5;
-  PyObject *__pyx_t_6 = NULL;
+  long __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
+  Py_ssize_t __pyx_t_6;
+  Py_ssize_t __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2834,7 +2851,7 @@ static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression
 
   /* "FL/models/_LogisticRegression.pyx":20
  * 
- *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1):
+ *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1, extra_verbose=False):
  *         self.optimizer.w_star = &w_star[0]             # <<<<<<<<<<<<<<
  *         self.optimizer.parallel = parallel
  *         self.optimizer.communications = communications
@@ -2852,7 +2869,7 @@ static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression
   __pyx_v_self->optimizer->w_star = (&(*((double *) ( /* dim=0 */ (__pyx_v_w_star.data + __pyx_t_1 * __pyx_v_w_star.strides[0]) ))));
 
   /* "FL/models/_LogisticRegression.pyx":21
- *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1):
+ *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1, extra_verbose=False):
  *         self.optimizer.w_star = &w_star[0]
  *         self.optimizer.parallel = parallel             # <<<<<<<<<<<<<<
  *         self.optimizer.communications = communications
@@ -2865,7 +2882,7 @@ static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression
  *         self.optimizer.parallel = parallel
  *         self.optimizer.communications = communications             # <<<<<<<<<<<<<<
  *         self.optimizer.workers = workers
- *         cdef  res;
+ *         print_updates = 1 if extra_verbose == True else 0
  */
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_communications); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L1_error)
   __pyx_v_self->optimizer->communications = __pyx_t_2;
@@ -2874,91 +2891,108 @@ static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression
  *         self.optimizer.parallel = parallel
  *         self.optimizer.communications = communications
  *         self.optimizer.workers = workers             # <<<<<<<<<<<<<<
+ *         print_updates = 1 if extra_verbose == True else 0
  *         cdef  res;
- *         if local == False:
  */
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_v_workers); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
   __pyx_v_self->optimizer->workers = __pyx_t_2;
 
-  /* "FL/models/_LogisticRegression.pyx":25
+  /* "FL/models/_LogisticRegression.pyx":24
+ *         self.optimizer.communications = communications
  *         self.optimizer.workers = workers
- *         cdef  res;
- *         if local == False:             # <<<<<<<<<<<<<<
- *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1])
- *         else:
- */
-  __pyx_t_3 = ((__pyx_v_local == 0) != 0);
-  if (__pyx_t_3) {
-
-    /* "FL/models/_LogisticRegression.pyx":26
+ *         print_updates = 1 if extra_verbose == True else 0             # <<<<<<<<<<<<<<
  *         cdef  res;
  *         if local == False:
- *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1])             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_4 = PyObject_RichCompare(__pyx_v_extra_verbose, Py_True, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (__pyx_t_5) {
+    __pyx_t_3 = 1;
+  } else {
+    __pyx_t_3 = 0;
+  }
+  __pyx_v_print_updates = __pyx_t_3;
+
+  /* "FL/models/_LogisticRegression.pyx":26
+ *         print_updates = 1 if extra_verbose == True else 0
+ *         cdef  res;
+ *         if local == False:             # <<<<<<<<<<<<<<
+ *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1], print_updates)
  *         else:
- *             return self.optimizer.run_local(&X[0,0], &y[0], X.shape[0], X.shape[1])
+ */
+  __pyx_t_5 = ((__pyx_v_local == 0) != 0);
+  if (__pyx_t_5) {
+
+    /* "FL/models/_LogisticRegression.pyx":27
+ *         cdef  res;
+ *         if local == False:
+ *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1], print_updates)             # <<<<<<<<<<<<<<
+ *         else:
+ *             return self.optimizer.run_local(&X[0,0], &y[0], X.shape[0], X.shape[1], print_updates)
  */
     __Pyx_XDECREF(__pyx_r);
     __pyx_t_1 = 0;
-    __pyx_t_4 = 0;
+    __pyx_t_6 = 0;
     __pyx_t_2 = -1;
     if (__pyx_t_1 < 0) {
       __pyx_t_1 += __pyx_v_X.shape[0];
       if (unlikely(__pyx_t_1 < 0)) __pyx_t_2 = 0;
     } else if (unlikely(__pyx_t_1 >= __pyx_v_X.shape[0])) __pyx_t_2 = 0;
-    if (__pyx_t_4 < 0) {
-      __pyx_t_4 += __pyx_v_X.shape[1];
-      if (unlikely(__pyx_t_4 < 0)) __pyx_t_2 = 1;
-    } else if (unlikely(__pyx_t_4 >= __pyx_v_X.shape[1])) __pyx_t_2 = 1;
+    if (__pyx_t_6 < 0) {
+      __pyx_t_6 += __pyx_v_X.shape[1];
+      if (unlikely(__pyx_t_6 < 0)) __pyx_t_2 = 1;
+    } else if (unlikely(__pyx_t_6 >= __pyx_v_X.shape[1])) __pyx_t_2 = 1;
     if (unlikely(__pyx_t_2 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_2);
-      __PYX_ERR(0, 26, __pyx_L1_error)
+      __PYX_ERR(0, 27, __pyx_L1_error)
     }
-    __pyx_t_5 = 0;
+    __pyx_t_7 = 0;
     __pyx_t_2 = -1;
-    if (__pyx_t_5 < 0) {
-      __pyx_t_5 += __pyx_v_y.shape[0];
-      if (unlikely(__pyx_t_5 < 0)) __pyx_t_2 = 0;
-    } else if (unlikely(__pyx_t_5 >= __pyx_v_y.shape[0])) __pyx_t_2 = 0;
+    if (__pyx_t_7 < 0) {
+      __pyx_t_7 += __pyx_v_y.shape[0];
+      if (unlikely(__pyx_t_7 < 0)) __pyx_t_2 = 0;
+    } else if (unlikely(__pyx_t_7 >= __pyx_v_y.shape[0])) __pyx_t_2 = 0;
     if (unlikely(__pyx_t_2 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_2);
-      __PYX_ERR(0, 26, __pyx_L1_error)
+      __PYX_ERR(0, 27, __pyx_L1_error)
     }
-    __pyx_t_6 = ((struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer *)__pyx_v_self->optimizer->__pyx_vtab)->run(__pyx_v_self->optimizer, (&(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_X.data + __pyx_t_1 * __pyx_v_X.strides[0]) ) + __pyx_t_4 * __pyx_v_X.strides[1]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_5 * __pyx_v_y.strides[0]) )))), (__pyx_v_X.shape[0]), (__pyx_v_X.shape[1])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 26, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_r = __pyx_t_6;
-    __pyx_t_6 = 0;
+    __pyx_t_4 = ((struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer *)__pyx_v_self->optimizer->__pyx_vtab)->run(__pyx_v_self->optimizer, (&(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_X.data + __pyx_t_1 * __pyx_v_X.strides[0]) ) + __pyx_t_6 * __pyx_v_X.strides[1]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_7 * __pyx_v_y.strides[0]) )))), (__pyx_v_X.shape[0]), (__pyx_v_X.shape[1]), __pyx_v_print_updates); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 27, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_r = __pyx_t_4;
+    __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "FL/models/_LogisticRegression.pyx":25
- *         self.optimizer.workers = workers
+    /* "FL/models/_LogisticRegression.pyx":26
+ *         print_updates = 1 if extra_verbose == True else 0
  *         cdef  res;
  *         if local == False:             # <<<<<<<<<<<<<<
- *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1])
+ *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1], print_updates)
  *         else:
  */
   }
 
-  /* "FL/models/_LogisticRegression.pyx":28
- *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1])
+  /* "FL/models/_LogisticRegression.pyx":29
+ *             return self.optimizer.run(&X[0,0], &y[0], X.shape[0], X.shape[1], print_updates)
  *         else:
- *             return self.optimizer.run_local(&X[0,0], &y[0], X.shape[0], X.shape[1])             # <<<<<<<<<<<<<<
+ *             return self.optimizer.run_local(&X[0,0], &y[0], X.shape[0], X.shape[1], print_updates)             # <<<<<<<<<<<<<<
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_5 = 0;
-    __pyx_t_4 = 0;
+    __pyx_t_7 = 0;
+    __pyx_t_6 = 0;
     __pyx_t_2 = -1;
-    if (__pyx_t_5 < 0) {
-      __pyx_t_5 += __pyx_v_X.shape[0];
-      if (unlikely(__pyx_t_5 < 0)) __pyx_t_2 = 0;
-    } else if (unlikely(__pyx_t_5 >= __pyx_v_X.shape[0])) __pyx_t_2 = 0;
-    if (__pyx_t_4 < 0) {
-      __pyx_t_4 += __pyx_v_X.shape[1];
-      if (unlikely(__pyx_t_4 < 0)) __pyx_t_2 = 1;
-    } else if (unlikely(__pyx_t_4 >= __pyx_v_X.shape[1])) __pyx_t_2 = 1;
+    if (__pyx_t_7 < 0) {
+      __pyx_t_7 += __pyx_v_X.shape[0];
+      if (unlikely(__pyx_t_7 < 0)) __pyx_t_2 = 0;
+    } else if (unlikely(__pyx_t_7 >= __pyx_v_X.shape[0])) __pyx_t_2 = 0;
+    if (__pyx_t_6 < 0) {
+      __pyx_t_6 += __pyx_v_X.shape[1];
+      if (unlikely(__pyx_t_6 < 0)) __pyx_t_2 = 1;
+    } else if (unlikely(__pyx_t_6 >= __pyx_v_X.shape[1])) __pyx_t_2 = 1;
     if (unlikely(__pyx_t_2 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_2);
-      __PYX_ERR(0, 28, __pyx_L1_error)
+      __PYX_ERR(0, 29, __pyx_L1_error)
     }
     __pyx_t_1 = 0;
     __pyx_t_2 = -1;
@@ -2968,26 +3002,26 @@ static PyObject *__pyx_pf_2FL_6models_19_LogisticRegression_18LogisticRegression
     } else if (unlikely(__pyx_t_1 >= __pyx_v_y.shape[0])) __pyx_t_2 = 0;
     if (unlikely(__pyx_t_2 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_2);
-      __PYX_ERR(0, 28, __pyx_L1_error)
+      __PYX_ERR(0, 29, __pyx_L1_error)
     }
-    __pyx_t_6 = ((struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer *)__pyx_v_self->optimizer->__pyx_vtab)->run_local(__pyx_v_self->optimizer, (&(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_X.data + __pyx_t_5 * __pyx_v_X.strides[0]) ) + __pyx_t_4 * __pyx_v_X.strides[1]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_1 * __pyx_v_y.strides[0]) )))), (__pyx_v_X.shape[0]), (__pyx_v_X.shape[1])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 28, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_r = __pyx_t_6;
-    __pyx_t_6 = 0;
+    __pyx_t_4 = ((struct __pyx_vtabstruct_2FL_10optimizers_9Optimizer_Optimizer *)__pyx_v_self->optimizer->__pyx_vtab)->run_local(__pyx_v_self->optimizer, (&(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_X.data + __pyx_t_7 * __pyx_v_X.strides[0]) ) + __pyx_t_6 * __pyx_v_X.strides[1]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_y.data + __pyx_t_1 * __pyx_v_y.strides[0]) )))), (__pyx_v_X.shape[0]), (__pyx_v_X.shape[1]), __pyx_v_print_updates); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_r = __pyx_t_4;
+    __pyx_t_4 = 0;
     goto __pyx_L0;
   }
 
   /* "FL/models/_LogisticRegression.pyx":19
  *         self.optimizer.gradient_func = &grad
  * 
- *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1):             # <<<<<<<<<<<<<<
+ *     def fit(self, double[:, ::] X, double[::] y, double[::] w_star, bint parallel=False, bint local=False, communications=10, workers=1, extra_verbose=False):             # <<<<<<<<<<<<<<
  *         self.optimizer.w_star = &w_star[0]
  *         self.optimizer.parallel = parallel
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_AddTraceback("FL.models._LogisticRegression.LogisticRegression.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -18474,6 +18508,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
   {&__pyx_n_s_error, __pyx_k_error, sizeof(__pyx_k_error), 0, 0, 1, 1},
+  {&__pyx_n_s_extra_verbose, __pyx_k_extra_verbose, sizeof(__pyx_k_extra_verbose), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
   {&__pyx_n_s_fortran, __pyx_k_fortran, sizeof(__pyx_k_fortran), 0, 0, 1, 1},

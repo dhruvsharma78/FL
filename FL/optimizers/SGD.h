@@ -15,6 +15,7 @@ typedef struct sgd_context_t {
 	int workers;
 	int parallel;
 	int batch_size;
+	int print_updates;
 	int experiments;
 	int communications;
 	double (*objective_func) (int N, int dim, double*, double*, double*, double);

@@ -6,5 +6,5 @@ cdef class Optimizer:
     cdef int communications, workers
     cdef bint parallel
     
-    cdef run(self, double* X, double* y, int N, int dim)
-    cdef run_local(self, double* X, double* y, int N, int dim)
+    cdef run(self, double* X, double* y, int N, int dim, int pu)
+    cdef run_local(self, double* X, double* y, int N, int dim, int pu)

@@ -50,7 +50,7 @@ sgd_task(sgd_context_t* ctx, int start, double *_obj_SGD, double *_obj_SGD_iters
 	}
 	for (j = 0; j < ctx->epochs; ++j) {
 		obj_SGD[j] += ctx->objective_func(ctx->N, ctx->dim, ctx->X, ctx->y, w, ctx->reg);
-		if (!(j % 10)) {
+		if (!(j % 10) && !(ctx->print_updates == 0)) {
 			printf("Experiment: %d/%d, Epoch %d/%d, Loss: %f\n", start+1, ctx->experiments, j+1, ctx->epochs, obj_SGD[j]);
 		}
 		for (i = 0; i < max_iters; ++i) {
