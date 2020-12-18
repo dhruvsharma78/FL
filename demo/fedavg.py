@@ -21,8 +21,8 @@ if __name__ == "__main__":
     p = comm.Get_size()
 
 
-    N = 50
-    dim = 3
+    N = 8000
+    dim = 10
     reg = 1e-4
     np.random.seed(0)
     w = np.random.multivariate_normal([0.0]*dim, np.eye(dim), 1).T
@@ -32,10 +32,10 @@ if __name__ == "__main__":
 
     ss = .1
     ep = 5
-    batch = 30
-    exp = 1
+    batch = 50
+    exp = 25
     decay = False
-    num_coms = 5
+    num_coms = 10
 
 
     # split the data
@@ -76,7 +76,8 @@ if __name__ == "__main__":
 
         print("Time taken: {:.2f}s".format((time.process_time_ns() - y_start) /1000000000))
         print("Final result is " + str(obj[exp-1]))
-        print("Final Weights:\n" + w_aggregate)
+        print("Final Weights:")
+        print(w_aggregate)
 
     else:
     
@@ -96,5 +97,4 @@ if __name__ == "__main__":
                 new_w_resized[j] = new_w[j]
             
             comm.send((avg_obj, new_w_resized), dest=0)
-            w_next = comm.recv(source=0)
-        
+            w_next = np.reshape(comm.recv(source=0), dim)
