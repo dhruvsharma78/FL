@@ -78,6 +78,7 @@ if __name__ == "__main__":
         print("Final result is " + str(obj[exp-1]))
         print("Final Weights:")
         print(w_aggregate)
+        sys.stdout.flush()
 
     else:
     
