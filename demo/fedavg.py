@@ -74,6 +74,8 @@ if __name__ == "__main__":
             obj[i] /= p-1
 
 
+        print("Number of MPI nodes: {}".format(p - 1))
+        print("Dataset size: {}".format((N, dim)))
         print("Time taken: {:.2f}s".format((time.process_time_ns() - y_start) /1000000000))
         print("Final result is " + str(obj[exp-1]))
         print("Final Weights:")
