@@ -52,7 +52,7 @@ if __name__ == "__main__":
     
     if my_rank == 0:
         
-        y_start = time.process_time_ns()
+        y_start = time.time_ns()
         obj = np.zeros((exp, 1))
         MSE = np.zeros((exp, 1))
         w_aggregate = np.zeros_like(w_star.value)
@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
         print("Number of MPI nodes: {}".format(p - 1))
         print("Dataset size: {}".format((N, dim)))
-        print("Time taken: {:.2f}s".format((time.process_time_ns() - y_start) /1000000000))
+        print("Time taken: {:.2f}s".format((time.time_ns() - y_start) /1000000000))
         print("Final result is " + str(obj[exp-1]))
         print("Final Weights:")
         print(w_aggregate)
