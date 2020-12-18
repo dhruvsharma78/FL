@@ -21,8 +21,14 @@ if __name__ == "__main__":
     p = comm.Get_size()
 
 
-    N = 8000
-    dim = 10
+    if len(sys.argv) > 1 and sys.argv[1] != None:
+        N = int(sys.argv[1])
+    else:
+        N = 8000
+    if len(sys.argv) > 2 and sys.argv[2] != None:
+        dim = int(sys.argv[2])
+    else:
+        dim = 10
     reg = 1e-4
     np.random.seed(0)
     w = np.random.multivariate_normal([0.0]*dim, np.eye(dim), 1).T
@@ -33,9 +39,12 @@ if __name__ == "__main__":
     ss = .1
     ep = 5
     batch = 50
-    exp = 25
+    if len(sys.argv) > 3 and sys.argv[3] != None:
+        exp = int(sys.argv[3])
+    else:
+        exp = 25
     decay = False
-    num_coms = 10
+    num_coms = 100
 
 
     # split the data
@@ -47,6 +56,8 @@ if __name__ == "__main__":
     problem = cvx.Problem(cvx.Minimize(loss))
     problem.solve(verbose = False, abstol = 1e-15)
     opt = problem.value
+    print(f'N: {N} dim: {dim} exp: {exp}')
+    print('CVX Optimal Value:', opt)
 
     # server
     
@@ -76,6 +87,8 @@ if __name__ == "__main__":
 
         print("Number of MPI nodes: {}".format(p - 1))
         print("Dataset size: {}".format((N, dim)))
+        print("Experiments: {}".format(exp))
+        print("Communication Rounds: {}".format(num_coms))
         print("Time taken: {:.2f}s".format((time.time_ns() - y_start) /1000000000))
         print("Final result is " + str(obj[exp-1]))
         print("Final Weights:")
