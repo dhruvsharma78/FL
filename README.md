@@ -27,18 +27,13 @@ obj, MSE, x = model.fit(X, y, w_star, local=True, communications=100, workers=5)
 
 # Installation
 
-1. Install required packages listed in requirements.txt
-2. Install OpenMP and Intel MKL
-3. In setup.py change the global variables `extra_compile_args`, `extra_link_args`, `lib_paths` and `libs` to match your installation of MKL and OpenMP along with the compiler you wish to use. Use the [Intel MKL Link Line Advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) to find your link and compile arguments. The default setup works with `gcc` and uses the TBB threaded version of Intel MKL 2020.
-4. Run `python setup.py build_ext`. This will build and compile the module
-5. Run `python setup.py install`. This will install the package as `FL` in your local python installation. If you are using a virtual environment (recommended) the package will only be installed in your virtual env.
-6. Use the package as shown in the Usage section or see the examples in `demo/`
-
-# Setup Windows (Only works with Windows right now. I'll update environment later.):
-
-1. Install Microsoft MPI v10.0 from https://www.microsoft.com/en-us/download/details.aspx?id=57467&WT.mc_id=rss_alldownloads_devresources. Make sure to add C:\Program Files\Microsoft MPI\Bin\ to your "Environment Variables".
-
-2. This project uses Anaconda environments to guarantee package management. There is a .yml file provided. Open the command prompt. Please build a conda environment from this file using the command "conda env create -n FLRR -f windows_environment.yml". Activate the environment using "conda activate FLRR". Verify that the new environment is working using conda env list.
+1. Install required packages listed in requirements.txt. It is advised to use a virtual environment here. See later section on how to do this. Some environments may also require that you install cmake and cpython.
+2. Install OpenMP, OpenMPI and Intel MKL. While Intel oneMKL may work. This version has only been tested with MKL 2020.
+3. Ensure that your shell has the MKL environment variables. To load these, you can source the `mklvars.sh` file provided in the MKL installation.
+4. In setup.py change the global variables `extra_compile_args`, `extra_link_args`, `lib_paths` and `libs` to match your installation of MKL and OpenMP along with the compiler you wish to use. Use the [Intel MKL Link Line Advisor](https://software.intel.com/content/www/us/en/develop/articles/intel-mkl-link-line-advisor.html) to find your link and compile arguments. The default setup works with `gcc` and uses the TBB threaded version of Intel MKL 2020. We recommended you use gcc. Make sure your gcc version was compiled with OpenMP support.
+5. Run `python setup.py build_ext`. This will build and compile the module
+6. Run `python setup.py install`. This will install the package as `FL` in your local python installation. If you are using a virtual environment (recommended) the package will only be installed in your virtual env.
+7. Use the package as shown in the Usage section or see the examples in `demo/`
 
 # Setup using VirtualEnv
 

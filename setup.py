@@ -34,7 +34,7 @@ includes = [
 
 extra_compile_args = [
     "-fopenmp", # OpenMP
-    "-DMKL_ILP64", # Intel MKL
+    # "-DMKL_ILP64", # Intel MKL. Use if not using Single Dynamic Library
     "-m64", # Intel MKL
     "-I${MKLROOT}/include", # Intel MKL
     # "-fsanitize=address" # Uncomment to check for addressing issues in C code
@@ -42,21 +42,25 @@ extra_compile_args = [
 
 extra_link_args = [
     "-fopenmp", # Do not remove
+    "-Wl,--no-as-needed",
     "-Wl,-rpath,${MKLROOT}/lib", # Intel MKL
     # "-fsanitize=address" # Uncomment to check for addressing issues in C code
 ]
 
 lib_paths = [
-    "${MKLROOT}/lib" # Intel MKL
+    # "${MKLROOT}/lib" # Intel MKL MacOs
+    "${MKLROOT}/lib/intel64" # Intel MKL Linux
 ]
 
 libs = [
     # Intel MKL and requisites
-    "mkl_intel_ilp64",
-    "mkl_tbb_thread",
-    "mkl_core",
-    "tbb",
-    "c++",
+    "mkl_rt" # Intel MKL Single Dynamic Library
+    ### use the following if not using Single Dynamic Library
+    # "mkl_intel_ilp64",
+    # "mkl_tbb_thread",
+    # "mkl_core",
+    # "tbb",
+    # "c++",
     "pthread",
     "m",
     "dl"
