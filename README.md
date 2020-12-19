@@ -40,6 +40,21 @@ obj, MSE, x = model.fit(X, y, w_star, local=True, communications=100, workers=5)
 1. Create a virtual env using `python3 -m venv .venv` and then use it by running `source .venv/bin/activate`
 2. `pip install -r requirements.txt` will install all needed packages. If you update the source code and add a new package, make sure to update the requirements file by running `pip freeze > requirements.txt`
 
+# Running on a cluser (AWS)
+
+To run federated averaging on a cluster, you first need the AWS cli and need to run `aws configure`. Once your AWS credentials are set up, you can use the config files provided in `/cluster/aws` to launch a cluster. The cluster will come with the environment preinstalled! But make sure to enter the `CS239Project` directory in the home directory and `git pull` to get the latest version.
+
+To launch a cluster,
+`pcluster create -c /cluster/aws/cluster.config -t x10node2cpu cluster-1-10n2c`
+To ssh into the root node of the cluster
+`pcluster ssh cluster-1-5n8c -i <IdentityFile>`
+The identity file must be specified in the `/cluster/aws/cluster.config` file. Make sure to change the `key` parameter in each cluster section of that file.
+
+Once you are in the root node of the cluster, launch a job via slurm
+`sbatch -N 10 -c 2 CS239Project/cluster/aws/slurm_fedavg_job.sh <N> <dim> <batch_size>`
+
+View the status of your job using `squeue` and view your results in the output file generated in your working directory.
+
 # Usage (Legacy):
 
 1. With the conda environment activated use the command "mpiexec -n 5 python fedavg_demo.py"
